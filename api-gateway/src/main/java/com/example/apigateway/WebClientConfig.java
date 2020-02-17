@@ -10,11 +10,11 @@ import org.springframework.security.oauth2.client.registration.ReactiveClientReg
 import org.springframework.security.oauth2.client.web.DefaultReactiveOAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction;
 import org.springframework.security.oauth2.client.web.server.ServerOAuth2AuthorizedClientRepository;
+import org.springframework.security.oauth2.client.web.server.WebSessionServerOAuth2AuthorizedClientRepository;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class WebClientConfig {
-
     @Bean
     @LoadBalanced
     WebClient.Builder webClientBuilder(ReactiveOAuth2AuthorizedClientManager authorizedClientManager) {
@@ -24,25 +24,5 @@ public class WebClientConfig {
         oauth.setDefaultClientRegistrationId("okta");
         return WebClient.builder()
             .filter(oauth);
-    }
-
-    @Bean
-    ReactiveOAuth2AuthorizedClientManager authorizedClientManager(
-        ReactiveClientRegistrationRepository clientRegistrationRepository,
-        ServerOAuth2AuthorizedClientRepository authorizedClientRepository) {
-
-        ReactiveOAuth2AuthorizedClientProvider authorizedClientProvider =
-            ReactiveOAuth2AuthorizedClientProviderBuilder.builder()
-                .authorizationCode()
-                .refreshToken()
-                .clientCredentials()
-                .password()
-                .build();
-        DefaultReactiveOAuth2AuthorizedClientManager authorizedClientManager =
-            new DefaultReactiveOAuth2AuthorizedClientManager(
-                clientRegistrationRepository, authorizedClientRepository);
-        authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
-
-        return authorizedClientManager;
     }
 }
