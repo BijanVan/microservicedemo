@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: gateway
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://dev-920771.okta.com/oauth2/default/v1/keys
+          issuer-uri: https://dev-920771.okta.com/oauth2/default
+      client:
+        registration:
+          okta:
+            provider: okta
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+            authorization-grant-type: authorization_code
+            redirect-uri-template: "{baseUrl}/login/oauth2/code/okta"
+            scope: openid
+        provider:
+          okta:
+            authorization-uri: https://dev-920771.okta.com//oauth2/default/v1/authorize
+            token-uri: https://dev-920771.okta.com/oauth2/default/v1/token
+            user-info-uri: https://dev-920771.okta.com/oauth2/default/v1/userinfo
+            user-name-attribute: sub
+            jwk-set-uri: https://dev-920771.okta.com/oauth2/default/v1/keys
+            issuer-uri: https://dev-920771.okta.com/oauth2/default
+
+

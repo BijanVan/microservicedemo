@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: car-service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://dev-920771.okta.com/oauth2/default/v1/keys
+          issuer-uri: https://dev-920771.okta.com/oauth2/default
+
+server:
+  port: 8081

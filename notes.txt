@@ -1,0 +1,16 @@
+cd C:\Users\Bijan\Documents\Projects\java\practice
+mkdir spring-cloud-gateway
+cd spring-cloud-gateway
+
+http https://start.spring.io/starter.zip javaVersion==11 artifactId==discovery-service name==eureka-service baseDir==discovery-service dependencies==cloud-eureka-server | tar -xzvf -
+
+cd discovery-service
+idea64 pom.xml
+
+http https://start.spring.io/starter.zip javaVersion==11 artifactId==api-gateway name==api-gateway baseDir==api-gateway dependencies==devtools,actuator,cloud-eureka,cloud-feign,cloud-gateway,cloud-hystrix,webflux,lombok | tar -xzvf -
+
+http https://start.spring.io/starter.zip javaVersion==11 artifactId==car-service name==car-service baseDir==car-service dependencies==devtools,actuator,cloud-eureka,webflux,data-mongodb-reactive,flapdoodle-mongo,lombok | tar -xzvf -
+
+
+mvnw test
+
